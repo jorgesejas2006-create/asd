@@ -1,0 +1,76 @@
+CAMBIOS REALIZADOS - GAMESTORE (06/10/2026)
+
+1. NUEVO TEMA VISUAL
+- Se cambió el fondo negro casi puro por una paleta gris carbón / gris acero.
+- Se conserva el rojo como color principal para mantener el estilo gamer.
+- Se actualizaron tarjetas, formularios, navbar, footer, catálogo, compra, perfil y paneles.
+- Se dejó actualizado también el CSS compilado de public/build para que el estilo se vea incluso antes de volver a ejecutar npm run build.
+
+2. VALIDACIONES MÁS ESTRICTAS
+- Nuevo Form Request: app/Http/Requests/JuegoRequest.php.
+- Nombre: obligatorio, longitud controlada y sin caracteres HTML peligrosos.
+- Descripción: obligatoria, entre 10 y 1500 caracteres y con control de contenido no permitido.
+- Año: rango válido.
+- Categoría y consola: solo valores permitidos.
+- Stock: entero entre 0 y 100000.
+- Precio: numérico entre 1 y 999999.99.
+- URL de imagen: URL válida y longitud máxima.
+- Código de acceso: único, longitud controlada y solo letras, números, guiones y guiones bajos.
+- Se impide eliminar un juego que ya tenga ventas registradas.
+- Búsquedas de catálogo, ventas y clientes tienen longitud y valores validados.
+- Compra protegida con transacción y bloqueo de stock para evitar vender una unidad que ya se agotó.
+- Registro de usuario reforzado: nombre válido, correo único y contraseña fuerte (mínimo 8 caracteres, mayúscula, minúscula, número y símbolo).
+- Login y perfil normalizan correo/nombre antes de validar.
+
+3. MENSAJES EN ESPAÑOL
+- APP_LOCALE cambiado a es.
+- Se agregaron traducciones para autenticación, recuperación de contraseña, paginación y validaciones.
+- Se tradujeron textos visibles de login y registro.
+- Los errores de formularios se muestran en español.
+
+4. NUEVO PANEL DEL ADMINISTRADOR
+Ruta: /admin
+- Resumen de ventas, ingresos, clientes y juegos sin stock.
+- Ranking de los 5 juegos más vendidos basado en detalle_compras.
+- Alertas de stock bajo.
+- Tabla completa de inventario con estado DISPONIBLE / STOCK BAJO / SIN STOCK.
+- Acceso directo para editar el stock de cada juego.
+- El admin es redirigido a este panel al entrar al dashboard.
+
+5. ALERTAS DE STOCK
+- Se considera stock bajo cuando hay 10 unidades o menos.
+- El administrador ve una alerta superior en las páginas cuando hay juegos con poco stock o agotados.
+- La alerta muestra nombre y cantidad y permite ir directamente a editar.
+
+6. CATÁLOGO PARA EL CLIENTE
+- Si stock = 0, la tarjeta muestra claramente "SIN STOCK".
+- El botón Comprar se reemplaza por un botón deshabilitado "Sin stock".
+- Si quedan pocas unidades, aparece "Últimas X unidades".
+- El detalle del juego también muestra DISPONIBLE / STOCK BAJO / SIN STOCK.
+
+7. ARCHIVOS PRINCIPALES MODIFICADOS
+- app/Http/Controllers/AdminController.php
+- app/Http/Controllers/CompraController.php
+- app/Http/Controllers/JuegoController.php
+- app/Http/Controllers/Auth/RegisteredUserController.php
+- app/Http/Requests/JuegoRequest.php (nuevo)
+- app/Http/Requests/ProfileUpdateRequest.php
+- app/Http/Requests/Auth/LoginRequest.php
+- app/Models/Juego.php
+- app/Providers/AppServiceProvider.php
+- routes/web.php
+- resources/css/app.css
+- resources/views/admin/dashboard.blade.php (nuevo)
+- resources/views/juegos/index.blade.php
+- resources/views/juegos/show.blade.php
+- resources/views/juegos/create.blade.php
+- resources/views/juegos/edit.blade.php
+- resources/views/layouts/app.blade.php
+- resources/views/auth/login.blade.php
+- resources/views/auth/register.blade.php
+- lang/es/*.php (nuevo)
+- lang/es.json (nuevo)
+- .env y .env.example
+
+NO SE AGREGARON TABLAS NUEVAS EN ESTA MODIFICACIÓN.
+Las 8 tablas funcionales del sistema se mantienen sin cambios.
